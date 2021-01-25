@@ -60,7 +60,7 @@ if (tools_param$MSA_aligner=="clustalw"){ my.msa <- microbiome.msa.clustalw }
 
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
-tools_param$tree_method <- "RAXML"    # PHANGORN  
+tools_param$tree_method <- "RAXML"    # PHANGORN  / FastTree
 source("src/pipeline_dada2/6_Phylogeny.R")
 # OUTPUT:
 
