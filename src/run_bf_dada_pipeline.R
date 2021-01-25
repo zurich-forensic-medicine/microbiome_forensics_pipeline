@@ -24,7 +24,7 @@ source("src/configure.R")
 df.metadata <- read.table(file.path(metadata_path,"metadata.txt"))
 
 # cutadapt shall come here as well
-
+# TODO
 
 source("src/pipeline_dada2/2_file_names_parsing.R")
 
@@ -40,15 +40,28 @@ dada_param$trimRight <- c(0,0)
 # be carefull, reads less then that are discarded!
 dada_param$truncLen <-c(227,210)   # 230 / 210
 # INPUT:
+# the following files shall be loaded here
 source("src/pipeline_dada2/4_BIG_dada_SV_table.R")
 # OUTPUT:
 
 
-print("==================> Phylogeny reconstraction has started...")
+print("==================> MSA construction has started...")
 # INPUT:
 tools_param$MSA_aligner <- "DECIPHER"   # DECIPHER / MUSCLE / clustalw 
-tools_param$tree_method <- "RAXML"    # PHANGORN   
-source("src/pipeline_dada2/5_Phylogeny.R")
+# files: seqtab, samples.names, asv_sequences, filter.log,
+load(file=file.path(files_intermediate_dada, seqtab.file)) 
+#load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
+source("src/pipeline_dada2/5_MSA.R")
+# OUTPUT: 
+if (tools_param$MSA_aligner=="DECIPHER"){ my.msa <- microbiome.msa.decipher }
+if (tools_param$MSA_aligner=="MUSCLE"){ my.msa <- microbiome.msa.muscle }
+if (tools_param$MSA_aligner=="clustalw"){ my.msa <- microbiome.msa.clustalw }
+
+
+print("==================> Phylogeny reconstraction has started...")
+# INPUT:
+tools_param$tree_method <- "RAXML"    # PHANGORN  
+source("src/pipeline_dada2/6_Phylogeny.R")
 # OUTPUT:
 
 
@@ -57,8 +70,8 @@ print("==================> Taxonomy assignment has started...")
 #tools_param$tax_db <- "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
 tools_param$tax_db <- "ncbi"
 tools_param$tax_method <- "mapseq"
-#source("src/pipeline_dada2/6_Tax_Assign_dada2_RDP.R")
-source("src/pipeline_dada2/6_Tax_Assign_MapSeq.R")
+#source("src/pipeline_dada2/7_Tax_Assign_dada2_RDP.R")
+source("src/pipeline_dada2/7_Tax_Assign_MapSeq.R")
 # OUTPUT
 
 
@@ -66,8 +79,8 @@ print("==================> Creating the final results file...")
 source("src/pipeline_dada2/7_Create_Phyloseq_obj.R")
 
 
-print(" Now PhyloSeq object has been created and you can run your analysis")
-print(" >>>>>>>  END  <<<<<<<<")
+print(" Now PhyloSeq object has been created and you can run your analysis: >>>>>>>  END  <<<<<<<<")
+
 
 
 

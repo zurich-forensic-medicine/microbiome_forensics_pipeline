@@ -10,7 +10,8 @@
 packageVersion("dada2")
 
 ### LOAD PREVIOUS DATA
-load(file=file.path(metadata_path, metadata.file)) 
+# df.metadata  should be loaded outside of the script
+#load(file=file.path(metadata_path, metadata.file)) 
 
 
 ### FILTERING  ##########################

@@ -1,84 +1,13 @@
-#### do MSA and INFER A PHYLOGENY TREE with
-# MSA - a core Bioconductor package, for multiple sequence alignment
+#### INFER A PHYLOGENY TREE with
 # Phangorn (NJ, ML Felsenstein)
 # RAxML (TODO)
 # ape - Analyses of Phylogenetics and Evolution
 ##############################################
 # http://www.metagenomics.wiki/tools/phylogenetic-tree
 
-
-#### init: load packages and set path
-load(file=file.path(files_intermediate_dada, seqtab.file)) 
-load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
+# INPUT: the following files must be here
 
 
-##############  MSA Construction ##############
-# extract DNA seq from seqtab object
-seqs <- asv_sequences  # NOTE: names of this vector will propagate to the tip labels of the tree
-
-
-# note: msa package provides a unified R/Bioconductor interface to MSA (ClustalW, ClustalOmega, Muscle)
-# TODO: check for ClustalW specific parameters
-#microbiome.msa.clustalW <- msa::msa(seqs, method="ClustalW", type="dna", order="input")
-
-# TODO: look for another package for MSA, this on msa is very badly written
-# TODO: check for Muscle specific parameters
-
-# option 0:  AlignSeqsfrom the DECIPHER
-if (tools_param$MSA_aligner=="DECIPHER"){
-  print("--> run MSA by DECIPHER")
-  microbiome.msa.decipher <- DECIPHER::AlignSeqs( DNAStringSet(seqs) )
-  Biostrings::writeXStringSet(microbiome.msa.decipher, file=file.path(result_path, "msa_decipher.fasta"))
-  save(microbiome.msa.decipher, file=file.path(files_intermediate_dada, msa.file)) 
-  }
-
-
-# option 1: generate MSA with Muscle
-# 5 hours
-if (tools_param$MSA_aligner=="MUSCLE"){
-  print("--> run MSA by MUSCLE")
-  tic()
-  microbiome.msa.muscle <- msa::msaMuscle(seqs, type="dna", order="input")
-  cat("msa (muscle) took: ")
-  toc()  # 1972.561sec
-  print(microbiome.msa.muscle)
-  rownames(microbiome.msa.muscle)
-  
-  # save MSA as a fasta file for possible vizualization with UGene browser
-  Biostrings::writeXStringSet(unmasked(microbiome.msa.muscle), file=file.path(result_path, "msa_muscle.fasta"))
-  save(microbiome.msa.muscle, file=file.path(files_intermediate_dada, msa.file)) 
-}
-
-
-
-# option 2: generate MSA with clustalW
-# 6 hours
-if (tools_param$MSA_aligner=="clustalw"){
-  print("--> run MSA by clustalw")
-  tic()
-  microbiome.msa.clustalw <- msa::msaClustalW(seqs, type="dna", order="input")
-  cat("msa (clustalw) took: ")
-  toc() 
-  print(microbiome.msa.clustalw)
-  Biostrings::writeXStringSet(unmasked(microbiome.msa.clustalw), file=file.path(result_path, "msa_clustalw.fasta"))
-  
-  # save objects for reusing late in pipeline 
-  save(microbiome.msa.clustalw,  file=file.path(files_intermediate_dada, msa.file)) 
-}
-
-              
-
-#################################################
-# use one of this 
-if (tools_param$MSA_aligner=="DECIPHER"){ my.msa <- microbiome.msa.decipher }
-if (tools_param$MSA_aligner=="MUSCLE"){ my.msa <- microbiome.msa.muscle }
-if (tools_param$MSA_aligner=="clustalw"){ my.msa <- microbiome.msa.clustalw }
-
-
-
-
-####################### Infer a phylogenetic tree 
-# TODO: use a separate file for each method (like taxonomy)
 
 ########### OPTION 1:  fast NJ tree, can be used as guide tree as well
 
@@ -121,7 +50,7 @@ if (tools_param$tree_method=="PHANGORN"){
 
 
 
-############### OPTION2 :  ML tree with RAxML: ML tree for species >1000 with fast heuristics
+############### OPTION 2 :  ML tree with RAxML: ML tree for species >1000 with fast heuristics
 ####  NOTE: need to install raxml on local MAC first
 #exec.path.mac <- "/Users/alex/bioinf_tools/RAxML/raxmlHPC-PTHREADS-AVX"
 #exec.path.ubuntu <- "/home/alex/installed/BIOINF_tools/RAxML/raxmlHPC-PTHREADS-AVX"
@@ -150,7 +79,7 @@ if (tools_param$tree_method=="RAXML"){
     as.matrix(msa.dnabin), 
     m = "GTRGAMMA",
     f = "d",   # d - new rapid hill-climbing / "a", # best tree and bootstrap
-    N = 4, # number of bootstrap replicates
+    N = 10, # number of bootstrap replicates
     p = 2234, # random number seed
     exec = raxm.exec.path, 
     threads=6,
@@ -166,6 +95,9 @@ if (tools_param$tree_method=="RAXML"){
 }
 
 
+
+############### OPTION 3 : FastTree
+# http://www.microbesonline.org/fasttree/
 
 
 
