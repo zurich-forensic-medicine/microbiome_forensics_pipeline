@@ -1,3 +1,4 @@
+# catadapt must be installed:: source activate py3.6_twins
 #  chmod +x 0_cut_adapters.sh
 
 # INPUT: 
