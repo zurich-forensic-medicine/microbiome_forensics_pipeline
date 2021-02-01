@@ -31,14 +31,14 @@ source("src/pipeline_dada2/2_file_names_parsing.R")
 
 print("==================> long dada2 analysis has started...")
 dada_param$QUALITY_THRESHOLD <- 2
-dada_param$maxEE <- c(2,2)
+dada_param$maxEE <- c(2,4)
 
 # trim If primers are at the start of your reads and are a constant length
 dada_param$trimLeft <- c(0,0)
 dada_param$trimRight <- c(0,0)
 
 # be carefull, reads less then that are discarded!
-dada_param$truncLen <-c(227,210)   # 230 / 210
+dada_param$truncLen <-c(210,220)   # 230 / 210
 # INPUT:
 # the following files shall be loaded here
 source("src/pipeline_dada2/4_BIG_dada_SV_table.R")
