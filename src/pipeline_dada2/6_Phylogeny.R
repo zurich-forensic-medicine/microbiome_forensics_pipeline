@@ -98,27 +98,25 @@ if (tools_param$tree_method=="RAXML"){
 
 ############### OPTION 3 : FastTree
 # http://www.microbesonline.org/fasttree/
-# FastTree -gtr -nt < alignment.file > tree_file 
+# FastTree -gtr -nt alignment_file > tree_file
 if (tools_param$tree_method=="FastTree"){
   print("-------> Tree inference by FastTree")
-  tic()
   
-  x1 <- 'FastTree -gtr -nt'   # script to run, must be installed
-  arg <- ''  # add argument here (for the future)
+  x1 <- '/Users/alex/bioinf_tools/FastTree/FastTree -gtr -nt'   # script to run, must be installed
+  align.file <- file.path(files_intermediate_dada, "msa.fasta")
+  tree.file <- file.path(files_intermediate_dada, "phylo_tree_newick.tree")
   
-  x <- paste(x1, arg)
+  x <- paste(x1, align.file, ' > ', tree.file)
   cat(x)  # sanity check
   
   # run bash command
   system(x)
-  
 
-  treeFastTreeML <- ????
-  toc()
+  treeFastTreeML <- ape::read.tree(tree.file)
+  
   save(treeFastTreeML, file=file.path(files_intermediate_dada, phylo.file)) 
   
-  
-  my.tree <- fitGTR
+  my.tree <- treeFastTreeML
 }
 
 

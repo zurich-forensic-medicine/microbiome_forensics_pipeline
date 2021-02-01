@@ -53,9 +53,8 @@ load(file=file.path(files_intermediate_dada, seqtab.file))
 #load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
 source("src/pipeline_dada2/5_MSA.R")
 # OUTPUT: 
-if (tools_param$MSA_aligner=="DECIPHER"){ my.msa <- microbiome.msa.decipher }
-if (tools_param$MSA_aligner=="MUSCLE"){ my.msa <- microbiome.msa.muscle }
-if (tools_param$MSA_aligner=="clustalw"){ my.msa <- microbiome.msa.clustalw }
+my.msa <- microbiome.msa
+
 
 
 print("==================> Phylogeny reconstraction has started...")
