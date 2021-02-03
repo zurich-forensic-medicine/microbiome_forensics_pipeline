@@ -8,7 +8,7 @@
 ### LOAD PREVIOUS DATA
 load(file=file.path(metadata_path, metadata.file))
 load(file=file.path(files_intermediate_dada, seqtab.file)) 
-load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
+#load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
 load(file=file.path(files_intermediate_dada, tax.fname))
 load(file=file.path(files_intermediate_dada, phylo.file)) 
 load(file=file.path(files_intermediate_dada, msa.file)) 
@@ -73,7 +73,11 @@ taxa_names(feature.table) <- new_names
 taxa_names(feature.table)
 
 
-tree.final <-  my.tree$bestTree   # raxml is rooted / GTP is unrooted
+if(tools_param$tree_method=="RAXML"){
+  tree.final <-  my.tree$bestTree   # raxml is rooted / GTP is unrooted
+}else{
+  tree.final <-  my.tree
+}
 taxa_names(tree.final)
 
 
@@ -109,7 +113,8 @@ folder.suffix <- paste0(
   "_trL", dada_param$trimLeft[1], dada_param$trimLeft[2],
   "_trR", dada_param$trimRight[1], dada_param$trimRight[2],
   "_truncLn", dada_param$truncLen[1], "_", dada_param$truncLen[2],
-  "_msa_", tools_param$MSA_aligner,
+  "_msa", tools_param$MSA_aligner,
+  "_phy", tools_param$tree_method,
   "_tax_", tools_param$tax_method
 )
 

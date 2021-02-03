@@ -90,14 +90,14 @@ filter.log <- cbind(filter.log, NA)
 colnames(filter.log) <- c("reads.in", "reads.out", "merged")
 
 ########### Quality after filtering
-report.path.filt <- paste0(filt_path.suf, "/fastQC")
+#report.path.filt <- paste0(filt_path.suf, "/fastQC")
 
 # run all FASQC reports and save them to do Multiqc later
-fastqcr::fastqc(fq.dir = filt_path.suf, # FASTQ files directory
-                qc.dir = report.path.filt, # Results direcory
-                threads = 5,                    # Number of threads
-                fastqc.path = fastqc.path
-)
+#fastqcr::fastqc(fq.dir = filt_path.suf, # FASTQ files directory
+#                qc.dir = report.path.filt, # Results direcory
+#                threads = 5,                    # Number of threads
+#                fastqc.path = fastqc.path
+#)
 
 # print the line for generation multi report
 # multiqc /Users/alex/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/fastq/no_primers/fastQC
@@ -147,6 +147,7 @@ for (sam in sample.names) {
   # mergePairs requires 20 nts of overlap by default
   # https://github.com/benjjneb/dada2/issues/419
   merger <- dada2::mergePairs(dadaF, derepF, dadaR, derepR)
+  
   if (length(merger$sequence)==0){
     print(" !!!!!  You have a PROBLEM !!!!!! ")
     print("  Forward and Revers reads are not overlapping during merging! Please check trimming parameters!")
@@ -159,8 +160,7 @@ for (sam in sample.names) {
   filter.log[sam,"merged"] <- length(merger$sequence)
   
   counter <- counter + 1
-  print("SAMPLE #", counter, "...", sam, ",  ", length(merger$sequence),  " merged sequences... Done.")
-  print("----------")
+  cat("   ::SAMPLE #", counter, "Done...", sam, ":", length(merger$sequence),  " merged sequences.")
 }
 cat("Total time of sample inference: ")
 toc() # 8669sec=2.5h
@@ -184,7 +184,7 @@ names(asv_sequences) <- asv.short.names
 
 save(seqtab, samples.names, asv_sequences, filter.log, file=file.path(files_intermediate_dada, seqtab.file)) 
 
-print(" >>>  DADA2 ASV inference has been finished!")
+print(" >>>  DADA2 ASV inference has been finished!  <<<<<< ")
 
 
 

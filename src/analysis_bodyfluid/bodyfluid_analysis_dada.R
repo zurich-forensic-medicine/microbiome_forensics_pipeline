@@ -15,12 +15,12 @@ setwd(project_path)
 
 # Load the resulting pipeline file
 files_intermediate_dada <- "~/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/files_intermediate_dada"
-calculated_ps_file <- "run_BFL_DADA2_Q2_mEE24_trL00_trR00_truncLn210_220_msa_DECIPHER_tax_mapseq.RData"
+calculated_ps_file <- "run_BFL_DADA2_Q2_mEE24_trL00_trR00_truncLn210_220_msaDECIPHER_phyRAXML_tax_mapseq.RData"
 load(file=file.path(files_intermediate_dada, calculated_ps_file))
 
 
 #### init: load packages and set path
-source("src/configure.R")
+#source("src/configure.R")
 
 
 

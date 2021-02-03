@@ -59,7 +59,7 @@ my.msa <- microbiome.msa
 
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
-tools_param$tree_method <- "RAXML"    # PHANGORN  / FastTree
+tools_param$tree_method <- "RAXML"    # PHANGORN  / FastTree / RAXML
 source("src/pipeline_dada2/6_Phylogeny.R")
 # OUTPUT:
 
@@ -75,7 +75,7 @@ source("src/pipeline_dada2/7_Tax_Assign_MapSeq.R")
 
 
 print("==================> Creating the final results file...")
-source("src/pipeline_dada2/7_Create_Phyloseq_obj.R")
+source("src/pipeline_dada2/8_Create_Phyloseq_obj.R")
 
 
 print(" Now PhyloSeq object has been created and you can run your analysis: >>>>>>>  END  <<<<<<<<")

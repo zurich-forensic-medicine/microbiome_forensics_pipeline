@@ -8,7 +8,7 @@ seqs <- asv_sequences  # NOTE: names of this vector will propagate to the tip la
 
 # option 1:  AlignSeqsfrom the DECIPHER
 if (tools_param$MSA_aligner=="DECIPHER"){
-  print("--> run MSA by DECIPHER")
+  print("--> run MSA by DECIPHER:")
   tic()
   microbiome.msa <- DECIPHER::AlignSeqs( DNAStringSet(seqs) )
   cat("msa (DECIPHER) took: ")
@@ -44,5 +44,6 @@ if (tools_param$MSA_aligner=="clustalw"){
 
 
 # save MSA as a fasta file 
-Biostrings::writeXStringSet(unmasked(microbiome.msa), file=file.path(files_intermediate_dada, "msa.fasta"))
+# NOTE: in case of NOT DECIPHER there should be (unmasked(microbiome.msa)
+Biostrings::writeXStringSet(microbiome.msa, file=file.path(files_intermediate_dada, "msa.fasta"))
 save(microbiome.msa, file=file.path(files_intermediate_dada, msa.file)) 

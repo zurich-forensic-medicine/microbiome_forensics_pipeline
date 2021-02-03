@@ -79,7 +79,7 @@ if (tools_param$tree_method=="RAXML"){
     as.matrix(msa.dnabin), 
     m = "GTRGAMMA",
     f = "d",   # d - new rapid hill-climbing / "a", # best tree and bootstrap
-    N = 10, # number of bootstrap replicates
+    N = 5, # number of bootstrap replicates
     p = 2234, # random number seed
     exec = raxm.exec.path, 
     threads=6,
