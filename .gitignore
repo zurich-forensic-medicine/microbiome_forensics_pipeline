@@ -14,5 +14,11 @@ data_set_twin/reports_generated/*
 
 data_set_bodyfl/fastq/*
 data_set_bodyfl/reports_generated/*
+data_set_bodyfl/files_intermediate_dada/m*
+data_set_bodyfl/files_intermediate_dada/s*
+data_set_bodyfl/files_intermediate_dada/p*
+data_set_bodyfl/files_intermediate_dada/t*
+data_set_bodyfl/files_intermediate_dada/d*
+data_set_bodyfl/files_intermediate_dada/a*
 
 Docs/*
