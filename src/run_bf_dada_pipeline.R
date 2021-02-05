@@ -1,34 +1,46 @@
 ################## run configuration 
-# it sets all paths accorting to parameters above
-# TODO: use make instead?
 project_path <- "~/Projects_R/twins_microbiome_pipeline"
 setwd(project_path)
 
-# load packages and initialize config variables
+# load packages
 source("src/load.R")
 
 
-# configure paths depending on server / datasets etc 
+#### initialize a configuration data structure
+conf <- vector(mode="list", length=3)
+names(conf) <- c("location", "dataset", "pipeline")
+
+dada_param <- vector(mode="list", length=5)
+names(dada_param) <- c("QUALITY_THRESHOLD", "maxEE", "trimLeft", "trimRight", "truncLen")
+
+tools_param <- vector(mode="list", length=4)
+names(tools_param) <- c("MSA_aligner", "tree_method", "tax_db", "tax_method")
+
+
+
+# depending on server / datasets
 conf$location <- "LOCAL"  # LOCAL / HOMESERVER  / ETHSERVER
 conf$dataset <- "BFL"    #   TWIN / "BFL" /
 conf$pipeline <- "DADA2"   # QIIME / DADA2
 
-# set up all variables using conf$
+
+# configure paths to bioinformatics tools
 source("src/configure.R")
 
 
 ########### Start pipeline #############
-# TODO: add adupt removal to QIIME2 and to TWIN pipeline as well
-
 # load metadata
 df.metadata <- read.table(file.path(metadata_path,"metadata.txt"))
 
-# cutadapt shall come here as well
-# TODO
+# STEP: cutdapt
+source("src/pipeline_dada2/1_cut_adapters.R")
 
+
+# STEP: generate a list of raw data file names
 source("src/pipeline_dada2/2_file_names_parsing.R")
 
 
+# STEP: 
 print("==================> long dada2 analysis has started...")
 dada_param$QUALITY_THRESHOLD <- 2
 dada_param$maxEE <- c(2,4)
@@ -45,6 +57,7 @@ source("src/pipeline_dada2/4_BIG_dada_SV_table.R")
 # OUTPUT:
 
 
+# STEP:
 print("==================> MSA construction has started...")
 # INPUT:
 tools_param$MSA_aligner <- "DECIPHER"   # DECIPHER / MUSCLE / clustalw 
@@ -57,6 +70,7 @@ my.msa <- microbiome.msa
 
 
 
+# STEP:
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
 tools_param$tree_method <- "FastTree"    # PHANGORN  / FastTree / RAXML
@@ -64,6 +78,7 @@ source("src/pipeline_dada2/6_Phylogeny.R")
 # OUTPUT:
 
 
+# STEP:
 print("==================> Taxonomy assignment has started...")
 # INPUT:
 #tools_param$tax_db <- "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
@@ -74,11 +89,13 @@ source("src/pipeline_dada2/7_Tax_Assign_MapSeq.R")
 # OUTPUT
 
 
+# STEP:
 print("==================> Creating the final results file...")
 source("src/pipeline_dada2/8_Create_Phyloseq_obj.R")
 
 
-print(" Now PhyloSeq object has been created and you can run your analysis: >>>>>>>  END  <<<<<<<<")
+
+print(" >>>>>>>  END  >>>>>>> PhyloSeq object has been created and now you can run your analysis ")
 
 
 
