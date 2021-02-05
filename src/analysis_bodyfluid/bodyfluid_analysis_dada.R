@@ -15,7 +15,7 @@ setwd(project_path)
 
 # Load the resulting pipeline file
 files_intermediate_dada <- "~/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/files_intermediate_dada"
-calculated_ps_file <- "run_BFL_DADA2_Q2_mEE24_trL00_trR00_truncLn210_220_msaDECIPHER_phyRAXML_tax_mapseq.RData"
+calculated_ps_file <- "run_BFL_DADA2_Q2_mEE24_trL00_trR00_truncLn210_220_msaDECIPHER_phyFastTree_tax_mapseq.RData"
 load(file=file.path(files_intermediate_dada, calculated_ps_file))
 
 
@@ -104,7 +104,7 @@ no_top.genera.names <- all.genera.names[10:n]
 
 ################ START ANALYSIS
 # use either all data or for top/ bottom 30
-genera.names.to.use <- no_top.genera.names
+genera.names.to.use <- all.genera.names
 
 # TODO: why if I prune for all names I still have less variants? 3209 intead of 4381
 physeq.top <- prune_taxa((tax_table(ps.bfluid)[, "Genus"] %in% genera.names.to.use), ps.bfluid)
@@ -208,7 +208,7 @@ df.tax.reduced <- df.tax[,c("Phylum","Genus")]
 
 # package: ‘dplyr’ is a fairly new (2014) package that tries to provide easy tools for the most common data manipulation tasks.
 # This addresses a common problem with R in that all operations are conducted in memory and thus the amount of data you can work with is limited by available memory.
-# why we use it here? is our dataset big? it is primarily for big data...
+
 df.tax.reduced %>%
   group_by(Phylum) %>%
   summarize(n_unique = n_distinct(Genus))

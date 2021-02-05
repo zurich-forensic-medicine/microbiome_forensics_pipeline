@@ -59,7 +59,7 @@ my.msa <- microbiome.msa
 
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
-tools_param$tree_method <- "RAXML"    # PHANGORN  / FastTree / RAXML
+tools_param$tree_method <- "FastTree"    # PHANGORN  / FastTree / RAXML
 source("src/pipeline_dada2/6_Phylogeny.R")
 # OUTPUT:
 
