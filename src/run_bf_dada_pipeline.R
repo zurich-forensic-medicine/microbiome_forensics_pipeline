@@ -1,12 +1,13 @@
-################## run configuration 
-project_path <- "~/Projects_R/twins_microbiome_pipeline"
-setwd(project_path)
+# This is a microbiome pipleine based on dada2 entry point
+# @AlexY, 2021
 
+
+################## Configure pipeline
 # load packages
 source("src/load.R")
 
 
-#### initialize a configuration data structure
+#### initialize a configuration
 conf <- vector(mode="list", length=3)
 names(conf) <- c("location", "dataset", "pipeline")
 
@@ -17,15 +18,16 @@ tools_param <- vector(mode="list", length=4)
 names(tools_param) <- c("MSA_aligner", "tree_method", "tax_db", "tax_method")
 
 
-
-# depending on server / datasets
-conf$location <- "LOCAL"  # LOCAL / HOMESERVER  / ETHSERVER
-conf$dataset <- "BFL"    #   TWIN / "BFL" /
+# set the name of the server to easily swith between server and dataset to analyse
+conf$location <- "LOCAL"  # LOCAL / HOMESERVER
+conf$dataset <- "BFL"    #   TWIN / "BFL"
 conf$pipeline <- "DADA2"   # QIIME / DADA2
 
 
 # configure paths to bioinformatics tools
 source("src/configure.R")
+setwd(project_path)
+
 
 
 ########### Start pipeline #############
