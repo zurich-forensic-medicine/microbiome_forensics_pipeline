@@ -3,7 +3,10 @@
 
 # INPUT: 
 # folder with RAW reads
-BF_RAW_FOLDER=~/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/raw/raw/
+#BF_RAW_FOLDER=~/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/raw/raw/
+RAW_FOLDER=$1
+NO_PRIMERS_FOLDER=$2
+
 # adapters
 
 
@@ -18,7 +21,7 @@ BF_RAW_FOLDER=~/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/raw/raw/
 echo "--- Start cutting adapters with cutadapt version ------"
 cutadapt --version
 
-for SAMPLE_F in ${BF_RAW_FOLDER}*R1.fastq;
+for SAMPLE_F in ${RAW_FOLDER}*R1.fastq;
 do
   # form reverse reads
   SAMPLE_R=$(echo ${SAMPLE_F} | sed "s/R1/R2/") 
@@ -26,8 +29,8 @@ do
   echo ${SAMPLE_R}
   
   # form output path
-  OUT_F=$(echo ${SAMPLE_F} | sed "s/raw\/raw/raw\/no_primers/") 
-  OUT_R=$(echo ${SAMPLE_R} | sed "s/raw\/raw/raw\/no_primers/") 
+  OUT_F=$(echo ${SAMPLE_F} | sed ${NO_PRIMERS_FOLDER}) #sed "s/raw\/raw/raw\/no_primers/"
+  OUT_R=$(echo ${SAMPLE_R} | sed ${NO_PRIMERS_FOLDER}) 
   echo ${OUT_F}
   echo ${OUT_R}
   

@@ -1,13 +1,13 @@
-# This is a microbiome pipleine based on dada2 entry point
+# A microbiome pipleine based on dada2, this is an entry point
 # @AlexY, 2021
 
 
 ################## Configure pipeline
-# load packages
+# load R packages
 source("src/load.R")
 
 
-#### initialize a configuration
+#### initialize a configuration (parameters, location etc)
 conf <- vector(mode="list", length=3)
 names(conf) <- c("location", "dataset", "pipeline")
 
@@ -24,7 +24,7 @@ conf$dataset <- "BFL"    #   TWIN / "BFL"
 conf$pipeline <- "DADA2"   # QIIME / DADA2
 
 
-# configure paths to bioinformatics tools
+# generate abs paths to bioinformatics tools and intermediate files
 source("src/configure.R")
 setwd(project_path)
 
@@ -35,6 +35,7 @@ setwd(project_path)
 df.metadata <- read.table(file.path(metadata_path,"metadata.txt"))
 
 # STEP: cutdapt
+# ---> TODO: sent a path to raw data inside the sript
 source("src/pipeline_dada2/1_cut_adapters.R")
 
 
