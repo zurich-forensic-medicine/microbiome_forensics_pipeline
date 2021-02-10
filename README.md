@@ -36,7 +36,7 @@ saved into "seqtab_q15.RData" (q means trim parameter used during run)
   
   
   
-### Step 6. [ src/pipeline_dada2/6_Phylogeny.R ]
+### Step 6. [ src/pipeline_steps/6_Phylogeny.R ]
 
 Create a phylogeny out of all deduced sequence 8299 variants as follows
   - MSA with Muscle or ClustalW (seems very slow, need to investigate its advantages if any)
@@ -45,7 +45,7 @@ Create a phylogeny out of all deduced sequence 8299 variants as follows
   - Run  RAxML (slow, but accurate option) - need to be installed on local machine!
   
   
-### Step 7. [ src/pipeline_dada2/4_Tax_Assign.R ]
+### Step 7. [ src/pipeline_steps/4_Tax_Assign.R ]
 
 For each sequence variant deduced during previous step assign a taxomomy
 
@@ -55,7 +55,7 @@ For each sequence variant deduced during previous step assign a taxomomy
 
   
   
-### Step 8. [ src/pipeline_dada2/6_Create_Phyloseq_obj.R ]
+### Step 8. [ src/pipeline_steps/6_Create_Phyloseq_obj.R ]
 
 Combine everithing in one place.
 Create and save Phyloseq object for further manipulation and visulization of microbiome data
