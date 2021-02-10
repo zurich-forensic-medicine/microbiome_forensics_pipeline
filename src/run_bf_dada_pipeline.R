@@ -61,7 +61,7 @@ source("src/pipeline_steps/4_BIG_dada_SV_table.R")
 # OUTPUT:
 
 
-# STEP:
+# STEP 5:
 print("==================> MSA construction has started...")
 # INPUT:
 tools_param$MSA_aligner <- "DECIPHER"   # DECIPHER / MUSCLE / clustalw 
@@ -74,7 +74,7 @@ my.msa <- microbiome.msa
 
 
 
-# STEP:
+# STEP 6:
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
 tools_param$tree_method <- "FastTree"    # PHANGORN  / FastTree / RAXML
@@ -82,7 +82,7 @@ source("src/pipeline_steps/6_Phylogeny.R")
 # OUTPUT:
 
 
-# STEP:
+# STEP 7:
 print("==================> Taxonomy assignment has started...")
 # INPUT:
 #tools_param$tax_db <- "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
@@ -93,7 +93,7 @@ source("src/pipeline_steps/7_Tax_Assign_MapSeq.R")
 # OUTPUT
 
 
-# STEP:
+# STEP 8:
 print("==================> Creating the final results file...")
 source("src/pipeline_steps/8_Create_Phyloseq_obj.R")
 
