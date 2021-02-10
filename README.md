@@ -1,4 +1,4 @@
-# UK twins microbiome processing pipeline
+# 16S amplicon microbiome processing pipeline
 A Bioinformatics pipeline for processing 16S amplican raw Illumina reads
 
 INPUTS: raw illimina data, meta information (age, sex etc)
