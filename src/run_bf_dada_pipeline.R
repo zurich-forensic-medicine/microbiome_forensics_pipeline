@@ -34,16 +34,17 @@ setwd(project_path)
 # load metadata
 df.metadata <- read.table(file.path(metadata_path,"metadata.txt"))
 
-# STEP: cutdapt
-# ---> TODO: sent a path to raw data inside the sript
-source("src/pipeline_dada2/1_cut_adapters.R")
+# STEP 1: cutdapt
+# cutadapt must be installed 
+# check inside script to set up direct path to python and cutadapt
+source("src/pipeline_steps/1_cut_adapters.R")
 
 
-# STEP: generate a list of raw data file names
-source("src/pipeline_dada2/2_file_names_parsing.R")
+# STEP 2: generate a list of raw data file names
+source("src/pipeline_steps/2_file_names_parsing.R")
 
 
-# STEP: 
+# STEP 4: 
 print("==================> long dada2 analysis has started...")
 dada_param$QUALITY_THRESHOLD <- 2
 dada_param$maxEE <- c(2,4)
@@ -56,7 +57,7 @@ dada_param$trimRight <- c(0,0)
 dada_param$truncLen <-c(210,220)   # 230 / 210
 # INPUT:
 # the following files shall be loaded here
-source("src/pipeline_dada2/4_BIG_dada_SV_table.R")
+source("src/pipeline_steps/4_BIG_dada_SV_table.R")
 # OUTPUT:
 
 
@@ -67,7 +68,7 @@ tools_param$MSA_aligner <- "DECIPHER"   # DECIPHER / MUSCLE / clustalw
 # files: seqtab, samples.names, asv_sequences, filter.log,
 load(file=file.path(files_intermediate_dada, seqtab.file)) 
 #load(file=file.path(files_intermediate_dada, seqtab.snames.file)) 
-source("src/pipeline_dada2/5_MSA.R")
+source("src/pipeline_steps/5_MSA.R")
 # OUTPUT: 
 my.msa <- microbiome.msa
 
@@ -77,7 +78,7 @@ my.msa <- microbiome.msa
 print("==================> Phylogeny reconstraction has started...")
 # INPUT:
 tools_param$tree_method <- "FastTree"    # PHANGORN  / FastTree / RAXML
-source("src/pipeline_dada2/6_Phylogeny.R")
+source("src/pipeline_steps/6_Phylogeny.R")
 # OUTPUT:
 
 
@@ -87,14 +88,14 @@ print("==================> Taxonomy assignment has started...")
 #tools_param$tax_db <- "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
 tools_param$tax_db <- "ncbi"
 tools_param$tax_method <- "mapseq"
-#source("src/pipeline_dada2/7_Tax_Assign_dada2_RDP.R")
-source("src/pipeline_dada2/7_Tax_Assign_MapSeq.R")
+#source("src/pipeline_steps/7_Tax_Assign_dada2_RDP.R")
+source("src/pipeline_steps/7_Tax_Assign_MapSeq.R")
 # OUTPUT
 
 
 # STEP:
 print("==================> Creating the final results file...")
-source("src/pipeline_dada2/8_Create_Phyloseq_obj.R")
+source("src/pipeline_steps/8_Create_Phyloseq_obj.R")
 
 
 
