@@ -10,7 +10,7 @@ load(file=file.path(metadata_path, metadata.file))
 ###### create lists of file names of forward reads (fnFs) and reverse reads (fnRs) ######
 
 # get all sample's file names to be processed by scanning the raw data folder
-fns <- sort(list.files(raw_data_path, full.names = TRUE))
+fns <- sort(list.files(raw_path, full.names = TRUE))
 print(paste("Samples (reverse and forward) left BEFORE filtering::", length(fns)))
 
 

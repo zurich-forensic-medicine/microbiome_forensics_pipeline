@@ -38,8 +38,9 @@ if(conf$dataset == "TWIN"){
 
 metadata_path   <- file.path(project_path, dataset_path, "metadata")
 data_path <- file.path(project_path, dataset_path, "fastq")
-filt_path <- file.path(project_path, dataset_path, "fastq/filtered")
 raw_path <- file.path(project_path, dataset_path, "fastq/raw")
+filt_path <- file.path(project_path, dataset_path, "fastq/filtered")
+
 
 qiime_qza_path <- file.path(project_path, dataset_path, "fastq/qza")
 files_intermediate_dada  <- file.path(project_path, dataset_path, "files_intermediate_dada")
