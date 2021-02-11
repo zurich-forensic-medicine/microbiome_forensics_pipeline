@@ -162,7 +162,7 @@ for (sam in sample.names) {
   counter <- counter + 1
   cat("   ::SAMPLE #", counter, "Done...", sam, ":", length(merger$sequence),  " merged sequences.")
 }
-cat("Total time of sample inference: ")
+cat("\n ----------------- Total time of sample inference: ")
 toc() # 8669sec=2.5h
 save(mergers, file=file.path(files_intermediate_dada, mergers.file))
 

@@ -53,7 +53,7 @@ dada_param$maxEE <- c(2,4)
 dada_param$trimLeft <- c(0,0)
 dada_param$trimRight <- c(0,0)
 
-# be carefull, reads less then that are discarded!
+# be careful, reads less then 210 are discarded!
 dada_param$truncLen <-c(210,220)   # 230 / 210
 # INPUT:
 # the following files shall be loaded here
@@ -85,11 +85,9 @@ source("src/pipeline_steps/6_Phylogeny.R")
 # STEP 7:
 print("==================> Taxonomy assignment has started...")
 # INPUT:
-#tools_param$tax_db <- "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
-tools_param$tax_db <- "ncbi"
-tools_param$tax_method <- "mapseq"
-#source("src/pipeline_steps/7_Tax_Assign_dada2_RDP.R")
-source("src/pipeline_steps/7_Tax_Assign_MapSeq.R")
+tools_param$tax_db <- "ncbi"  # or "silva/silva_nr99_v138_train_set.fa.gz"  # "green_genes/gg_13_8_train_set_97.fa.gz"
+tools_param$tax_method <- "mapseq" # or silva / rdp
+source("src/pipeline_steps/7_Tax_Assign_MapSeq.R")  # or 7_Tax_Assign_dada2_RDP.R
 # OUTPUT
 
 
