@@ -101,7 +101,7 @@ colnames(filter.log) <- c("reads.in", "reads.out", "merged")
 
 # print the line for generation multi report
 # multiqc /Users/alex/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/fastq/no_primers/fastQC
-print(paste("multiqc", report.path.filt))
+#print(paste("multiqc", report.path.filt))
 
 
 
