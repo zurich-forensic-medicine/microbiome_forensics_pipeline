@@ -1,15 +1,27 @@
 # 16S amplicon microbiome processing pipeline
-A Bioinformatics pipeline for processing 16S amplican raw Illumina reads
+A Bioinformatics pipeline for processing 16S amplicon raw Illumina reads
 
-INPUTS: raw illimina data, meta information (age, sex etc)
+INPUTS: raw Illumina data, meta information (age, sex etc)
 
-OUTPUT: a phyloseq object with ASV table, taxonomy, phylo-tree and metainformation
+OUTPUT: a Phyloseq object with inferred: ASV table, taxonomy, phylo-tree and meta information about samples
 
 
 ## Pipeline
-All individual steps of this pipeline (adapter trimming, merging etc) are in /pipeline_steps folder
+All calculation is organized as a pipeline. An entry point to run this pipeline is run_bf_dada_pipeline.R script.
+Execute run_bf_dada_pipeline.R file to run the entire pipeline
 
-Execute run_bf_dada_pipeline.R file to run the whtire pipeline
+The general principle of this pipeline is modularity and flexibility.
+
+As a preliminary pipeline step three global data structures are initialized:
+- conf : names(conf) <- c("location", "dataset", "pipeline")
+- dada_param : names(dada_param) <- c("QUALITY_THRESHOLD", "maxEE", "trimLeft", "trimRight", "truncLen")
+- tools_param : c("MSA_aligner", "tree_method", "tax_db", "tax_method")
+
+which are self-explanatory. They are used inside every sript to set up tools parameters and to form a final Pgyloseq object file name.
+
+Then, subsequintly all spets of the pipeline are ran,
+
+All individual steps of this pipeline (adapter trimming, merging etc) are in /pipeline_steps folder
 
 
 ### [load.R  / configure.R]

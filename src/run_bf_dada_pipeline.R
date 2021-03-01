@@ -18,7 +18,7 @@ tools_param <- vector(mode="list", length=4)
 names(tools_param) <- c("MSA_aligner", "tree_method", "tax_db", "tax_method")
 
 
-# set the name of the server to easily switсh between server and dataset to analyse
+# set the name of the server to easily switch between server and dataset to analyze
 conf$location <- "LOCAL"  # LOCAL / HOMESERVER
 conf$dataset <- "BFL"    #   TWIN / "BFL"
 conf$pipeline <- "DADA2"   # QIIME / DADA2
