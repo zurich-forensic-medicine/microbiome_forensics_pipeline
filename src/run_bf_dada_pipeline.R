@@ -34,14 +34,20 @@ setwd(project_path)
 # load metadata
 df.metadata <- read.table(file.path(metadata_path,"metadata.txt"))
 
+
 # STEP 1: cutdapt
 # cutadapt must be installed 
 # check inside script to set up direct path to python and cutadapt
 source("src/pipeline_steps/1_cut_adapters.R")
 
 
+
 # STEP 2: generate a list of raw data file names
 source("src/pipeline_steps/2_file_names_parsing.R")
+
+
+# STEP 3: Visual Assessment of read's quality with FastQC
+#source("src/pipeline_steps/3_Quality_Assessment.R")
 
 
 # STEP 4: 
@@ -82,6 +88,7 @@ source("src/pipeline_steps/6_Phylogeny.R")
 # OUTPUT:
 
 
+
 # STEP 7:
 print("==================> Taxonomy assignment has started...")
 # INPUT:
@@ -89,6 +96,7 @@ tools_param$tax_db <- "ncbi"  # or "silva/silva_nr99_v138_train_set.fa.gz"  # "g
 tools_param$tax_method <- "mapseq" # or silva / rdp
 source("src/pipeline_steps/7_Tax_Assign_MapSeq.R")  # or 7_Tax_Assign_dada2_RDP.R
 # OUTPUT
+
 
 
 # STEP 8:

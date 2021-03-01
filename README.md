@@ -8,7 +8,7 @@ OUTPUT: a Phyloseq object with inferred: ASV table, taxonomy, phylo-tree and met
 
 ## Pipeline
 All calculation is organized as a pipeline. An entry point to run this pipeline is run_bf_dada_pipeline.R script.
-Execute run_bf_dada_pipeline.R file to run the entire pipeline
+Execute run_bf_dada_pipeline.R file to run the entire pipeline.
 
 The general principle of this pipeline is modularity and flexibility.
 
@@ -17,19 +17,21 @@ As a preliminary pipeline step three global data structures are initialized:
 - dada_param : names(dada_param) <- c("QUALITY_THRESHOLD", "maxEE", "trimLeft", "trimRight", "truncLen")
 - tools_param : c("MSA_aligner", "tree_method", "tax_db", "tax_method")
 
-which are self-explanatory. They are used inside every sript to set up tools parameters and to form a final Pgyloseq object file name.
+which are self-explanatory. They are used inside every script to set up tools parameters and to form a final Phyloseq object file name.
 
-Then, subsequintly all spets of the pipeline are ran,
+Then, subsequently all steps of the pipeline are ran.
 
 All individual steps of this pipeline (adapter trimming, merging etc) are in /pipeline_steps folder
 
+load.R  - load all neccesary R packages
+configure.R - initialize all paths to data/intermediate folders and bioinformatics tools
 
-### [load.R  / configure.R]
-Load all R packages and configure paths for intermediate files
+
+TODO: create a docker image to be able to run everything without any installations
 
 
-### Step 1: Cutadapt
-
+### Step 1: Cutadapt [ src/pipeline_steps/1_cut_adapters.R  ]
+Note: cutadapt must be installed and path to python and cutadapt must be hardcoded into 1_cut_adapters.R
 
 
 ### Step 4: [ src/pipeline_steps/4_BIG_dada_SV_table.R ]

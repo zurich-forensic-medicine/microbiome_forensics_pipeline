@@ -14,16 +14,16 @@ report.path <- paste0(raw_data_path, "/fastQC")
 
 # run all reports
 fastqcr::fastqc(fq.dir = raw_data_path, # FASTQ files directory
-         qc.dir = report.path, # Results direcory
+         qc.dir = report.path,           # Results folder
          threads = 5,                    # Number of threads
-         fastqc.path = fastqc.path #"/Applications/BIOINF/FastQC.app/Contents/MacOS/fastqc"
+         fastqc.path = fastqc.path       #"/Applications/BIOINF/FastQC.app/Contents/MacOS/fastqc"
 )
 
 # https://multiqc.info/
 # you can run multiqc by  - 
 # multiqc /Users/alex/Projects_R/twins_microbiome_pipeline/data_set_bodyfl/fastq/no_primers/fastQC
 
-# aggregare the reports
+# aggregate the reports
 qc <- qc_aggregate(report.path)
 
 # https://cran.r-project.org/web/packages/fastqcr/readme/README.html
